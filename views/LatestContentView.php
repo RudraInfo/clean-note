@@ -1,5 +1,7 @@
 <?php
-// this change fot git testing
+// This change is for testing git on date 21/09/2016
+
+
 if ($_SESSION['username'] == "")
 {
 	header('Location:Index.php');	        

@@ -32,6 +32,7 @@ error_reporting(E_ALL);
     <base href="<?php echo base_url();?>">          
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -54,7 +55,8 @@ error_reporting(E_ALL);
     
     <script src="lightbox/js/lightbox.js"></script>     
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>    
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> 
+   
   
     
     <!-- FeatherLight -->     
@@ -293,17 +295,26 @@ $(document.body).on('click', '.stat-item', function(e){
             likeunlike="FRIENDSLIKECOUNT";
             //$('#Commentimage' + $commentimage).attr('style','visibility:visible');
             alert('commentfooter' + a.attr('id').substr(7));
-            $('#commentfooter' + a.attr('id').substr(7)).attr('style','visibility:visible');            
+            $('#commentfooter' + a.attr('id').substr(7)).attr('style','visibility: visible');
             
+            //$('#Commentimage' + a.attr('id').substr(7)).attr('style','visibility:visible');
+            //$('#BtnComment' + a.attr('id').substr(7)).show(); //attr('style','visibility:visible;margin-top:2px;margin-left:20px;');
+            //$('#footerpost' + a.attr('id').substr(7)).attr('style','visibility:visible');            
             //footerpost
             //$('#footerpost' + a.attr('id').substr(a.attr('id').length-1,1)).attr('style','position:static');
-            $('#footerpost' + a.attr('id').substr(7)).attr('style','position:static');
+            //$('#footerpost' + a.attr('id').substr(7)).attr('style','position:absolute');
+           // $('#footerpost' + a.attr('id').substr(7)).show();    //attr('style','visibility:visible');            
+           // $('#inputgroup' + a.attr('id').substr(7)).show();  //attr('style','visibility:visible');            
             $('#footerpost' + a.attr('id').substr(7)).focus();
-            e= $('#footerpost' + a.attr('id').substr(7));
-            alert(e.height());
-            e.css({'height':'auto','overflow-y':'hidden'}).height(e.scrollHeight);
+           // $('#imageofcomment' + a.attr('id').substr(7)).show();
             
-            alert('2');
+            
+            //inputgroup
+            //e= $('#footerpost' + a.attr('id').substr(7));
+            //alert(e.height());
+            //e.css({'height':'auto','overflow-y':'hidden'}).height(e.scrollHeight);
+            
+            //alert('2');
             //alert('2');
             return;
             //alert(divparentid);
@@ -416,13 +427,12 @@ $(document.body).on('keyup', '.input-group .form-control.add-comment-input' ,fun
                        });
            }else if (event.which==27)
            {                
+               
+            $('#commentfooter' + $(parentdivid).attr('id').substr(7)).attr('style','display:none');
+            $('#commentfooter' + $(parentdivid).attr('a').substr(7)).attr('style','display:visible');
             $(this).parent().find('span:eq(0)').text($(this).val());
-            $(this).parent().hide();
-            $('#Commentimage' + $(parentdivid).attr('id').substr(7)).hide();
+            alert("hi");
             
-            
-            //$(this).parent().find('span:eq(0)').show();            
-         
            }
      });
     
@@ -504,19 +514,41 @@ $('.commentuploadphoto').click(function(){
 $('.btn.btn-success').click(function(){          
      alert('click in Green Button');
      //imageofcomment
-     alert($(this).attr('id').substr(14));     
-     $("#photoofcomment" +  $(this).attr('id').substr(14)).click();     
-      if (event.which==13 && $(txtid).val()!= '')
+     alert($(this).attr('id').substr(10))
+     $txtid=$(this);
+     $currtextval=($('#footerpost' + $(this).attr('id').substr(10)).val());     
+     $('#footerpost' + $(this).attr('id').substr(10)).val('');
+     $('#footerpost' + $(this).attr('id').substr(10)).focus();
+     alert($currtextval);
+      var parentdivid= $(this).parent().parent().parent().parent();
+      var commentid=($(parentdivid).find('ul'));//.attr('id'));
+         //parentdivid=parentdivid.substr(7,parentdivid.length-7);                 
+         //alert(parentdivid);
+         $Totcomment= $(commentid).find('li').length + 1;   
+         alert('parentdivid=' + $(parentdivid).attr('id')  + 'totcomment = ' + $Totcomment);
+        //alert($(this).parent().find('input:first').attr('id'));
+        //Comment Image Path
+        $comimagepath=$(this).parent().find('img:first').attr('src');
+        alert ($comimagepath);
+        if ($comimagepath=='undefined')
+        {
+            $comimagepath='';            
+        }
+        //alert($('#' + $txtid.attr('id')).val());
+        //$("#photoofcomment" +  $(this).attr('id').substr(14)).click();     
+      if ($currtextval != '')
            {                     
-                        alert($Totcomment);                        
+                        alert('in ajax');
+                        alert($comimagepath);
                         $.ajax({                              
                         url         : 'PostCommentBtnHandler/CommentFunction',
                         type        : 'POST',
-                        data        : "Comment=" + $(txtid).val() + "&ParentDiv=" + $(parentdivid).attr('id') + "&CommentCount=" + $Totcomment,
+                        data        : "Comment=" + $currtextval + "&ParentDiv=" + $(parentdivid).attr('id') + "&CommentCount=" + $Totcomment + "&Comimagepath=" + $comimagepath,
                         //datatype    : 'json',
                         //cache       :  false,                        
                         success  : function (response)
                         {
+                            alert('1');
                             alert("newcommentval=" + response.substring(1,response.indexOf('<')));
                             var newtotcomment=response.substring(1,response.indexOf('<'));
                             //alert("in sucess" + response);
@@ -528,12 +560,13 @@ $('.btn.btn-success').click(function(){
                             //txtid.attr('style','visibility:hidden');
                             //$('#footerpost' + txtid.attr('id').substr(txtid.attr('id').length-1,1)).attr('style','visibility:hidden');
                             //$('#commentfooter' + a.attr('id').substr(a.attr('id').length-1,1)).attr('style','visibility:visible');
-                            txtid.value="";
+                            $txtid.value="";
                             //$('#footerpost' + txtid.attr('id').substr(10)).attr('style','visibility:visible');).
                             //txtid.hide()a.attr('id').substr(7)).attr('style','visibility:visible');
                             //alert($(txtid).attr('id').substr(10));
                             //$('#footerpost' + $(txtid).attr('id').substr(10)).attr('style','visibility:hidden');
-                            $('#commentfooter' + $(txtid).attr('id').substr(10)).attr('style','visibility:hidden');
+                            $('#commentfooter' + $txtid.attr('id').substr(10)).attr('style','display:none');
+                            $('#Commentimage' + $txtid.attr('id').substr(10)).attr('style','display:none');
 
                           },
                        error: function(xhr,err){
@@ -1275,19 +1308,19 @@ $('#BtnPostComment').on("click",(function(e) {
                                 <div class="post-footer"  id="post-footer<?php echo $userdataarray[$key]['msg_id']; ?>" >
                                     
                                       <div id="commentfooter<?php echo $userdataarray[$key]['msg_id']; ?>" style="visibility: hidden;position:absolute;" >
-                                          <div class=" input-group col-sm-11" style="margin-left: 20px">
+                                          <div id="inputgroup<?php echo $userdataarray[$key]['msg_id']?>" class= "input-group col-sm-11" style="margin-left: 20px">
                                           <input class="form-control add-comment-input" placeholder="Add a comment..." type="text" id="footerpost<?php echo $userdataarray[$key]['msg_id']?>"/>                                          
-                                          <span class="input-group-addon">
-                                              <a class="commentuploadphoto" id="imageofcomment<?php echo $userdataarray[$key]['msg_id']; ?>"> <i  class="fa fa-camera"></i></a>
-                                          
-                                          
+                                          <span class="input-group-addon" id="commentfooteruploadclass<?php echo $userdataarray[$key]['msg_id']; ?>">
+                                              <a class="commentuploadphoto" id="imageofcomment<?php echo $userdataarray[$key]['msg_id']; ?>">
+                                                  <i  class="fa fa-camera" id="fafacameracomment<?php echo $userdataarray[$key]['msg_id']; ?>"></i></a>
                                           </span>                                                                                 
                                           </div>
                                                                                 
                                          <form  id = "frm<?php echo $userdataarray[$key]['msg_id']; ?>"  enctype="multipart/form-data" method="post" action="postCommentBtnHandler/uploadcommentimage" >
                                               <input type="file" style="visibility:hidden;position:absolute;" class="commentimageclass" name="photoofcomment<?php echo $userdataarray[$key]['msg_id']; ?>" id="photoofcomment<?php echo $userdataarray[$key]['msg_id']; ?>" >
-                                              <div id="Commentimage<?php echo $userdataarray[$key]['msg_id'];?>"></div>  
-                                              <button id="BtnComment<?php echo $userdataarray[$key]['msg_id'];?>" class="btn btn-success" type="button" style="margin-top:2px;margin-left: 20px">Comment</button>  
+                                              <div id="Commentimage<?php echo $userdataarray[$key]['msg_id'];?>" style="position:absolute;"></div>  
+                                              
+                                              <button id="BtnComment<?php echo $userdataarray[$key]['msg_id'];?>" class="btn btn-success" type="button" style="margin-top:2px;margin-left:20px;">Comment</button>  
                                                
                                          </form> 
                                           

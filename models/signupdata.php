@@ -63,7 +63,7 @@ else
 }
 } 
 
-public function submit_data($username,$email,$password,$confirm_password,$gender,$country){
+public function submit_data($username,$email,$password,$confirm_password,$gender){
     
 
 $u = $username;
@@ -71,7 +71,7 @@ $e = $email;
 $p = $password;
 $p2 = $confirm_password;
 $g = $gender;
-$c = $country;
+
 
 // email check 
 $email_check = $this->db->get_where('users',array('email'=> $e),1);
@@ -86,7 +86,7 @@ foreach ($username_check ->result() as $row) {
 }
 $user_rows = $username_check->num_rows();
 
-if($u== "" || $e== "" || $p == "" || $p2 == "" || $g == "" || $c == "")
+if($u== "" || $e== "" || $p == "" || $p2 == "" || $g == "")
 {
 	echo " Please fill all the foam data ";
 	exit();
@@ -120,7 +120,7 @@ else
 $ip = getenv('REMOTE_ADDR');
 $this->load->helper('date');
 
-$data = array('username'=>$u,'email'=>$e,'password'=>$p,'gender'=>$g,'country'=>$c,'ip'=>$ip,'activated'=> 1);
+$data = array('username'=>$u,'email'=>$e,'password'=>$p,'gender'=>$g,'ip'=>$ip,'activated'=> 1);
 
 $this->db->set('signup','now()',FALSE);
 $this->db->set('lastlogin','now()',FALSE);

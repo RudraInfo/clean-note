@@ -70,7 +70,12 @@ class wallmodel extends CI_Model {
         //    left join post_like as pl on m.msg_id=pl.msg_id_fk 
         //   left join users as u on m.uid_fk=u.username
         //    where m.uid_fk in ('.  $friendlist1 .') order by m.msg_id desc');
-       
+      // echo 'friedlist=' . $friendlist;
+       if ($friendlist=="'")
+       {
+           $friendlist="''";
+       }
+       //echo 'friedlist=' . $friendlist;
        $query=$this->db->query
        ('select m.*,u.avatar,u.username as usernameforlike from messages as m 
        left join users as u on m.uid_fk=u.username 
@@ -111,7 +116,10 @@ class wallmodel extends CI_Model {
                 $friendlist= $friendlist . ",'" . $row->user1 . "'";
             }
        } 
-       
+         if ($friendlist=="'")
+       {
+           $friendlist="''";
+       }
          $query=$this->db->query
                  ('Select u.avatar as commentavatar,u.username as commentusername ,com_id,comment,msg_id_fk,like_count,created 
                   from comments 

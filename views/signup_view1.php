@@ -14,6 +14,8 @@
     <link href="assets/css/animate.min.css" rel="stylesheet">
     <link href="font-awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="assets/css/timeline.css" rel="stylesheet">
+    <link href="C:\xampp\htdocs\PhpProject1\bootstrap-combobox-master\css\bootstrap-combobox.css">
+    <script type="text/javascript" src="C:\xampp\htdocs\PhpProject1\bootstrap-combobox-master\js\bootstrap-combobox.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="JQuery/jquery.form.js"></script>
 
@@ -197,10 +199,10 @@ $("#btn-submit").click(function() {
 	var email = $("#email").val();
 	var pass = $("#pass1").val();
 	var pass2 = $("#pass2").val();
-	var gender = $("#gender").val();
-	var country = $("#country").val();
+	var gender = $('input[name=gender]:checked').val()        
+	alert("gender="+gender);
         var btn = 1;        
-	var send = {'username':username,'email':email,'password':pass,'confirm_pass':pass2,'gender':gender,'country':country,'btn-submit':btn};
+	var send = {'username':username,'email':email,'password':pass,'confirm_pass':pass2,'gender':gender,'btn-submit':btn};
        
                  
          
@@ -276,15 +278,19 @@ $("#btn-submit").click(function() {
     });	
 });
 </script>
- 
-  <body class="welcome-page animated fadeIn">
+ <script type="text/javascript">
+  $(document).ready(function(){
+    $('.combobox').combobox();
+  });
+</script>
+  <body class="welcome-page">
       
     <div class="row row-welcome">
         
       <div class="login-page">         
           
           <div class="row">    
-           <div class=" col-md-3">
+           <div class=" col-md-2">
                 <a href="profile.html">
                     <img src="img/Friends/woman-1.jpg" style="height:80px;width:80px;position:absolute;margin-top:170px;margin-left:190px;" class="img-circle" />
                 </a>
@@ -319,30 +325,50 @@ $("#btn-submit").click(function() {
                <a href="profile.html">
                   <img src="img/Friends/woman-6.jpg" style="height:80px;width:80px;margin-top:230px;margin-right:30px ;position:absolute" class="img-circle" />
                 </a>
-                             
+                     
+               
               </div>
+                
+              <div class="row "> 
+                   
+                  <h2 style="position:absolute;margin-top:400px;margin-left:20px"> Meet your region's most appreciated people ! </h2>
+                  <h2 style="position:absolute;margin-top:430px;margin-left:80px; color:greenyellow"> Let's make them your neighbors! </h2>
              
-              <div class="row"> 
-                  <h1 style="position:absolute;margin-top:410px;margin-left:20px"> Meet your region's most appreciated people ! </h1>
-                  <h1 style="position:absolute;margin-top:450px;margin-left:80px; color:greenyellow"> Let's make them your neighbors! </h1>
+              </div>          
+              <div class="col-md-6 col-md-offset-0" >
+                  <div class="row" style="position:relative;margin-top:530px;display:block">
+                  <img src="img/celeb.png" />                  
+                  <a href="#"> 
+                  <img src="img/Friends/guy-8.jpg" style="position:absolute;left:20%;margin-top:60px; " class="img-circle" />
+                  </a> 
+                  
+                  <a href="#">
+                  <img src="img/Friends/woman-5.jpg" style="position:absolute;left:40%;margin-top:60px " class="img-circle" />    
+                  </a>                 
+                  
+                  <a href="#">
+                  <img src="img/Friends/guy-5.jpg" style="position:absolute;left:60%;margin-top:60px; " class="img-circle" />    
+                 </a>          
+                                
+                  </div>
+                                            
+                  
               </div>
-              
-          <div class="col-md-3 col-md-offset-8">
-           
-              
-              <img src="img/Friends/woman-1.jpg"  style="height:80px;width:80px" class="user-avatar img-circle"> 
-            <h4><img src="img/logo.png" style="height:80px;width:60px" class="img-logo">Clean-Note </h4> 
-            <form role="form" class="frm  animated fadeInRight"> 
+                             
+          <div class="col-md-4 col-md-offset-2">
+                        
+            <h4><img src="img/logo.png" style="height:70px;width:60px" class="img-logo">Clean-Note </h4> 
+            <form role="form" class="frm"> 
               <div class="form-content"> 
                 <div class="form-group"> 
-                  <input type="text" class="form-control input-underline input-sm" placeholder="Username" id="logusername"> 
+                  <input type="text" class="form-control input-underline input-lg" placeholder="Username" id="logusername"> 
                 </div> 
                 <div class="form-group"> 
-                  <input type="password" class="form-control input-underline input-sm" placeholder="Password" id="logpassword"> 
+                  <input type="password" class="form-control input-underline input-lg" placeholder="Password" id="logpassword"> 
                 </div> 
               </div> 
-              <button  type="button" class="btn btn-info btn-sm" id="btnlogin">Log in</button>
-              <a href="#" class="btn btn-info btn-sm btn-frm">Register</a>
+              <button  type="button" class="btn btn-info btn-lg" id="btnlogin">Log in</button>
+              <a href="#" class="btn btn-info btn-lg btn-frm">Register</a>
               <div id="login"></div>
             </form> 
             <form role="form" class="frm hidden" id="frmsubmit"> 
@@ -366,28 +392,18 @@ $("#btn-submit").click(function() {
                  <input type="password" id="pass2" class="form-control input-underline input-lg" placeholder="Confirm Password"> 
                 <div id="confirm2"></div>
                 </div> 
-                <div class="form-group">
-                <label >Gender</label>        
-                                              
-                 <Select class=" form-control input-group" id="gender"> 
-
-                  <option value=""></option>
-                  <option value="M">Male</option>
-                  <option value="F">Female</option>
-                 </Select>       
+                           
+              
+             
+                  <div class="form-group">
+                    
+                    <label class="radio-inline"><input type="radio" name="gender" value="m">Male</label>
+                    <label class="radio-inline"><input type="radio" name="gender" value="f">Female</label>
+                  
+                    
                  <div id="lbl1"></div>        
              	</div>
-             
-              <div class="form-group">
-                <label>Country</label>        
-
-                 <Select class="form-control input-group" id="country">                  
-                  <?php include_once("template_country_list.php"); ?>                  
-                  </Select>               
-
-             	<div id="lbl2"></div>
-                </div>
-             
+                  
               </div> 
               <a href="#" class="btn btn-info btn-lg btn-frm">Log in</a>
               <button type="button" name="btn" class="btn btn-info btn-lg" id="btn-submit" >Register</button>
@@ -395,31 +411,17 @@ $("#btn-submit").click(function() {
                 
             </form> 	
           </div> 
-              <br/>
-              <br/>
-              <br/>
-            <div class="row welcome-full animated fadeInLeft">
-          <div class="row col-md-offset-8">            
-              <img style="margin-top: 20px" src="img/celeb.png"/>
-                
-          </div>
-                <div class="row col-md-offset-8">  
-                <img  style="position:relative" src="img/Friends/woman-2.jpg" class="img-circle" />
-                </div>
-        </div>
-
-            
+                        
         </div> 
           <!-- this is new coding-->
-          <div class="row">
-              
-          </div>
-          <!-- this is new coding-->
-                <div class="row">
+          
+           
+          <div class="row" style="margin-top:100px ">
+                      
           <div class="container">
-              <br/>
-              <br/>              
               
+                    
+                
               <div class="footer footer-links">
                 <a href="#">Terms of Use</a> | 
                 <a href="#">Privacy Policy</a> | 
@@ -431,7 +433,12 @@ $("#btn-submit").click(function() {
          
           </div>
         </div>
+          
+ 
       </div>
+        
+        
+                     
     </div>
   </body>
 </html>

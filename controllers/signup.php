@@ -7,7 +7,7 @@ class Signup extends CI_Controller {
  $this->load->model('signupdata');  
 if(isset($_POST['btn-submit']))
 {
-$req = array("username","email", "password", "confirm_pass", "gender", "country");
+$req = array("username","email", "password", "confirm_pass", "gender");
     foreach($req AS $r) {
         if(empty($_POST[$r])) {
             $error = $r . " is a required";
@@ -18,8 +18,8 @@ $req = array("username","email", "password", "confirm_pass", "gender", "country"
             $password = $this->input->post('password');
             $confirm_password = $this->input->post('confirm_pass');
             $gender = $this->input->post('gender');
-            $country = $this->input->post('country');
-            $this->signupdata->submit_data($username,$email,$password,$confirm_password,$gender,$country);     
+          
+            $this->signupdata->submit_data($username,$email,$password,$confirm_password,$gender);     
             exit();
         }     
             
@@ -45,7 +45,7 @@ if(!isset($_POST['username']) == "")
   exit(); 
 } 
 
-$this->load->view('signup_view'); 
+$this->load->view('signup_view1'); 
 
    }   
 }

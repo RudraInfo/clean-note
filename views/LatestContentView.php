@@ -75,7 +75,7 @@ error_reporting(E_ALL);
  
  
         $(document).ready(function() {
-	
+//dfdfdfd	
        
         $("#img1").hide();
        	$("#photoframe").hover(function(){

@@ -1,6 +1,6 @@
 <?php
 class Login_control extends CI_Controller{    
-    
+//dfdfdf    
    
     public function index()
     {   
